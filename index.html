@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ScaffoldForge | Product-ready starter projects</title>
+    <meta
+      name="description"
+      content="ScaffoldForge helps developers create modern starter projects in seconds with ready-to-use templates for React, Node APIs, and full-stack apps."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container nav">
+        <div class="brand">
+          <span class="brand-mark">S</span>
+          <span>ScaffoldForge</span>
+        </div>
+        <nav class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#templates">Templates</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#customers">Why teams use it</a>
+        </nav>
+        <a class="button button-small button-primary" href="#pricing">Get started</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow">Ship faster. Start cleaner.</span>
+            <h1>Turn boilerplate into a product advantage.</h1>
+            <p class="lead">
+              ScaffoldForge generates product-ready starter projects in seconds, so your team can skip setup and move directly to building value.
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="#pricing">Start free</a>
+              <a class="button button-secondary" href="#templates">See templates</a>
+            </div>
+
+            <ul class="hero-metrics">
+              <li><strong>3x</strong><span>faster project start</span></li>
+              <li><strong>15min</strong><span>to a working app shell</span></li>
+              <li><strong>1 CLI</strong><span>for many stacks</span></li>
+            </ul>
+          </div>
+
+          <div class="hero-panel">
+            <div class="terminal">
+              <div class="terminal-topbar">
+                <span class="dot red"></span>
+                <span class="dot amber"></span>
+                <span class="dot green"></span>
+              </div>
+              <pre>$ scaffoldforge init my-dashboard --template react-vite
+
+✔ React + Vite project created
+✔ README generated
+✔ .env.example created
+✔ CI-ready structure prepared
+
+Next:
+  cd my-dashboard
+  npm install
+  npm run dev</pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="section">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Built for speed</span>
+            <h2>Everything teams need before writing product code</h2>
+          </div>
+
+          <div class="card-grid three-up">
+            <article class="feature-card">
+              <div class="icon">⚡</div>
+              <h3>Instant scaffolding</h3>
+              <p>Generate complete app shells with the exact structure your team needs, in a single command.</p>
+            </article>
+            <article class="feature-card">
+              <div class="icon">🧩</div>
+              <h3>Ready-made templates</h3>
+              <p>Start with React, Node APIs, or full-stack setups that already include configs and best practices.</p>
+            </article>
+            <article class="feature-card">
+              <div class="icon">📦</div>
+              <h3>Production mindset</h3>
+              <p>Created with README, environment files, linting structure, and a clean product foundation.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="templates" class="section alt-bg">
+        <div class="container">
+          <div class="section-heading narrow">
+            <span class="eyebrow">Templates</span>
+            <h2>Start from the stack you already use</h2>
+          </div>
+
+          <div class="card-grid three-up">
+            <article class="template-card">
+              <span class="pill">Frontend</span>
+              <h3>React + Vite</h3>
+              <p>Fast, modern frontend starter with a clean landing page and a ready-to-extend app shell.</p>
+            </article>
+            <article class="template-card">
+              <span class="pill">Backend</span>
+              <h3>Node + Express</h3>
+              <p>Minimal API foundation with environment config, tooling, and health-check routes included.</p>
+            </article>
+            <article class="template-card">
+              <span class="pill">Full-stack</span>
+              <h3>Node + React</h3>
+              <p>Fullstack starter with an API and React client prepared for a real product workflow.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="customers" class="section">
+        <div class="container two-col">
+          <div>
+            <span class="eyebrow">Why teams choose it</span>
+            <h2>Less setup, more product building.</h2>
+            <ul class="check-list">
+              <li>Eliminates repeated boilerplate work.</li>
+              <li>Standardizes app structure across projects.</li>
+              <li>Helps new developers become productive faster.</li>
+              <li>Structures projects for product delivery, not just demo code.</li>
+            </ul>
+          </div>
+
+          <div class="quote-box">
+            <p>
+              “We spent more time setting up projects than delivering features. ScaffoldForge changes that curve.”
+            </p>
+            <div class="quote-author">
+              <strong>Product engineering team</strong>
+              <span>Startup workflow</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing" class="section pricing-section">
+        <div class="container">
+          <div class="section-heading">
+            <span class="eyebrow">Pricing</span>
+            <h2>Simple plans for individuals and teams</h2>
+          </div>
+
+          <div class="pricing-grid">
+            <article class="price-card">
+              <div class="price-header">
+                <h3>Free</h3>
+                <div class="price">$0</div>
+              </div>
+              <ul>
+                <li>Basic templates</li>
+                <li>Project generation CLI</li>
+                <li>GitHub community access</li>
+              </ul>
+              <a class="button button-secondary" href="#">Get started</a>
+            </article>
+
+            <article class="price-card featured">
+              <div class="badge">Most popular</div>
+              <div class="price-header">
+                <h3>Pro</h3>
+                <div class="price">$19<span>/mo</span></div>
+              </div>
+              <ul>
+                <li>Premium templates</li>
+                <li>Custom project metadata</li>
+                <li>Template library access</li>
+                <li>Email support</li>
+              </ul>
+              <a class="button button-primary" href="#">Start Pro</a>
+            </article>
+
+            <article class="price-card">
+              <div class="price-header">
+                <h3>Enterprise</h3>
+                <div class="price">Custom</div>
+              </div>
+              <ul>
+                <li>Private templates</li>
+                <li>Team workspaces</li>
+                <li>Onboarding and support</li>
+                <li>Custom billing</li>
+              </ul>
+              <a class="button button-secondary" href="#">Talk to sales</a>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div class="brand small-brand">
+          <span class="brand-mark">S</span>
+          <span>ScaffoldForge</span>
+        </div>
+        <p>Build product momentum, not project setup debt.</p>
+      </div>
+    </footer>
+  </body>
+</html>
