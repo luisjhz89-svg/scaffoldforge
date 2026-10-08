@@ -1,0 +1,24 @@
+{
+  "name": "scaffoldforge",
+  "version": "0.1.0",
+  "description": "CLI generator for product-ready starter projects",
+  "bin": {
+    "scaffoldforge": "bin/scaffoldforge.js"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node bin/scaffoldforge.js",
+    "test": "node --test test/*.test.js"
+  },
+  "keywords": [
+    "scaffold",
+    "generator",
+    "boilerplate",
+    "cli",
+    "templates"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
