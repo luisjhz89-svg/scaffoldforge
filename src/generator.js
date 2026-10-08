@@ -1,34 +1,16 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { getTemplateById, sanitizeProjectName } from './templates.js';
 
 const rootDir = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 
-function normalizeProjectName(value) {
-  return String(value || 'my-app')
-    .trim()
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '') || 'my-app';
-}
-
-export const templates = {
-  'react-vite': {
-    label: 'React + Vite',
-    description: 'A lightweight React app with Vite, JSX and CSS starter files.'
-  },
-  'node-express': {
-    label: 'Node + Express',
-    description: 'A REST API starter with Express, environment config and health-check route.'
-  }
-};
-
-export function listTemplates() {
-  return Object.entries(templates).map(([id, meta]) => ({ id, ...meta }));
-}
-
-export function sanitizeProjectName(name) {
-  return normalizeProjectName(name);
+function toTitleCase(value) {
+  return String(value || 'My App')
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
 }
 
 export async function generateProject({
@@ -37,9 +19,18 @@ export async function generateProject({
   description = 'A project generated with ScaffoldForge',
   outputDir = process.cwd()
 }) {
-  const safeTemplate = templates[templateName] ? templateName : 'react-vite';
+  const template = getTemplateById(templateName);
+  if (!template) {
+    const available = Object.keys(getTemplateById('react-vite') ? {
+      'react-vite': true,
+      'node-express': true,
+      'fullstack-node-react': true
+    } : {}).join(', ');
+    throw new Error(`Unknown template: "${templateName}". Available templates: ${available}`);
+  }
+
   const safeProjectName = sanitizeProjectName(projectName);
-  const templateDir = path.join(rootDir, 'templates', safeTemplate);
+  const templateDir = path.join(rootDir, 'templates', template.id);
   const projectDir = path.join(outputDir, safeProjectName);
 
   await fs.mkdir(projectDir, { recursive: true });
@@ -48,15 +39,12 @@ export async function generateProject({
     projectName: safeProjectName,
     projectSlug: safeProjectName,
     description,
-    appName: safeProjectName.replace(/-/g, ' ')
-      .split(' ')
-      .map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
-      .join(' ')
+    appName: toTitleCase(safeProjectName)
   });
 
   return {
     projectName: safeProjectName,
-    templateName: safeTemplate,
+    templateName: template.id,
     projectDir
   };
 }

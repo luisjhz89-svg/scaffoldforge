@@ -1,35 +1,39 @@
 # ScaffoldForge
 
-ScaffoldForge is a CLI generator that creates ready-to-use starter projects for modern stacks. It helps teams skip the repetitive setup work and focus on product value.
+ScaffoldForge is a CLI generator that creates product-ready starter projects for modern software stacks. It helps teams skip repetitive boilerplate setup and start building value faster.
 
 ## Why it exists
-Most projects lose time in boilerplate:
-- creating folders and configs
+Most projects lose time in setup work:
+- creating folders and configuration
 - writing README files
-- setting up environment variables
-- preparing a basic app shell
+- setting environment variables
+- preparing a minimal app shell
+- bootstrapping frontend or backend structure
 
-ScaffoldForge turns that work into a fast generator so developers can start coding immediately.
+ScaffoldForge turns that into a one-command workflow.
 
 ## Included templates
 - React + Vite
 - Node + Express
+- Fullstack Node + React
 
-## Features
-- generate a project in a single command
-- fill in project metadata automatically
-- create app skeletons with starter files
-- keep a clean path for custom projects and premiums
+## Product vision
+The project is designed to grow into a real commercial product:
+- free tier: basic templates
+- pro tier: premium templates and export features
+- enterprise tier: private templates and support
+- custom services: onboarding, custom template creation, implementation support
 
 ## Installation
 
 From the repo root:
 
 ```bash
+npm install
 node bin/scaffoldforge.js list
 ```
 
-If you want the command available globally:
+If you want it available globally:
 
 ```bash
 npm install -g .
@@ -41,46 +45,47 @@ scaffoldforge list
 ```bash
 scaffoldforge init my-dashboard --template react-vite --description "Analytics dashboard"
 scaffoldforge init service-api --template node-express --description "Backend API starter"
+scaffoldforge init fullstack-app --template fullstack-node-react --output ./projects
 ```
 
-## Project generation flow
+## Commands
 
 ```bash
-node bin/scaffoldforge.js init my-app --template react-vite
+scaffoldforge list
+scaffoldforge help
+scaffoldforge version
+scaffoldforge init my-app --template react-vite
 ```
-
-This creates a folder named `my-app` in the current working directory with a starter project.
 
 ## Roadmap
 
 ### MVP
-- support for React + Vite
-- support for Node + Express
-- project metadata templating
-- list command and basic help
+- CLI project generator
+- template listing
+- React + Vite template
+- Node + Express template
+- basic validation and docs
 
-### Version 1.0
-- additional templates
-- live preview support
-- export templates as git repositories
-- better validation and error handling
+### v1.0
+- advanced templates
+- template preview and metadata
+- stronger CLI UX
+- custom template library
 
-### Version 2.0
+### v2.0
 - premium templates
-- private enterprise templates
-- team workspace and dashboard
-- paid plans for SaaS and support
+- private templates for teams
+- SaaS platform for template publishing
+- dashboard and billing integration
 
 ## Monetization model
 
-ScaffoldForge was designed to support a real product path:
+This project has a clear product path:
 
-- free tier: basic templates
-- pro tier: premium templates, custom metadata, export features
+- basic tier: free open templates
+- pro tier: premium templates and generator settings
 - enterprise tier: private templates and support
-- services: onboarding, custom templates, implementation support
-
-This makes it suitable for both OSS adoption and commercial momentum.
+- services: custom template development and onboarding
 
 ## Repository structure
 
@@ -94,12 +99,14 @@ This makes it suitable for both OSS adoption and commercial momentum.
 │   └── templates.js
 ├── templates/
 │   ├── react-vite/
-│   └── node-express/
+│   ├── node-express/
+│   └── fullstack-node-react/
 ├── test/
 │   └── scaffoldforge.test.js
 ├── package.json
 ├── README.md
-└── LICENSE
+├── LICENSE
+└── .gitignore
 ```
 
 ## License

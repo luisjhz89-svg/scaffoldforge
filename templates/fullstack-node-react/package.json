@@ -1,0 +1,19 @@
+{
+  "name": "{{projectSlug}}",
+  "version": "0.1.0",
+  "private": true,
+  "description": "{{description}}",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "node --watch server/index.js",
+    "dev:client": "cd client && npm install && npm run dev",
+    "start": "node server/index.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}
