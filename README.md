@@ -1,91 +1,88 @@
 # ScaffoldForge
 
-ScaffoldForge is a CLI generator that creates product-ready starter projects for modern software stacks. It helps teams skip repetitive boilerplate setup and start building value faster.
+ScaffoldForge is a CLI generator for modern starter projects. It helps teams skip repetitive setup and start building product value faster.
 
-## Why it exists
-Most projects lose time in setup work:
-- creating folders and configuration
-- writing README files
-- setting environment variables
-- preparing a minimal app shell
-- bootstrapping frontend or backend structure
+## What it does
 
-ScaffoldForge turns that into a one-command workflow.
-
-## Included templates
+ScaffoldForge generates ready-to-use starter projects for:
 - React + Vite
 - Node + Express
-- Fullstack Node + React
+- Full-stack Node + React
 
-## Product vision
-The project is designed to grow into a real commercial product:
-- free tier: basic templates
-- pro tier: premium templates and export features
-- enterprise tier: private templates and support
-- custom services: onboarding, custom template creation, implementation support
+## Quick install
 
-## Installation
-
-From the repo root:
+From the repository root:
 
 ```bash
 npm install
-node bin/scaffoldforge.js list
+npm link
+scaffoldforge list
 ```
 
-If you want it available globally:
+You can also install globally directly:
 
 ```bash
 npm install -g .
 scaffoldforge list
 ```
 
-## Usage
+## Create a project
 
 ```bash
-scaffoldforge init my-dashboard --template react-vite --description "Analytics dashboard"
-scaffoldforge init service-api --template node-express --description "Backend API starter"
-scaffoldforge init fullstack-app --template fullstack-node-react --output ./projects
+scaffoldforge init demo-app --template react-vite --description "Analytics dashboard"
+scaffoldforge init api-demo --template node-express --description "Backend API starter"
+scaffoldforge init fullstack-demo --template fullstack-node-react --description "Full-stack starter project"
 ```
 
-## Commands
+Then:
 
 ```bash
-scaffoldforge list
-scaffoldforge help
-scaffoldforge version
-scaffoldforge init my-app --template react-vite
+cd demo-app
+npm install
+npm run dev
 ```
+
+## Deploy the landing page to Vercel
+
+This repository is ready to be deployed as a static site on Vercel.
+
+### Steps
+
+1. Open https://vercel.com
+2. Sign in with GitHub
+3. Click "Add New Project"
+4. Import this repository
+5. Use these settings:
+   - Framework Preset: Other
+   - Build Command: leave empty
+   - Output Directory: .
+6. Click "Deploy"
+
+Vercel will serve the root `index.html` file and the `styles.css` file automatically.
+
+## Product model
+
+ScaffoldForge is designed as a real product with a clear monetization path:
+
+- Free: basic templates
+- Pro: premium templates and advanced generation options
+- Enterprise: private templates, team workspaces, onboarding, and support
 
 ## Roadmap
 
-### MVP
-- CLI project generator
-- template listing
+### MVP done
+- CLI generator
+- template list
 - React + Vite template
 - Node + Express template
-- basic validation and docs
+- full-stack starter template
+- product landing page
 
-### v1.0
-- advanced templates
-- template preview and metadata
-- stronger CLI UX
-- custom template library
-
-### v2.0
-- premium templates
-- private templates for teams
-- SaaS platform for template publishing
-- dashboard and billing integration
-
-## Monetization model
-
-This project has a clear product path:
-
-- basic tier: free open templates
-- pro tier: premium templates and generator settings
-- enterprise tier: private templates and support
-- services: custom template development and onboarding
+### Next
+- interactive template selection
+- more premium templates
+- support for custom metadata and export flows
+- dashboard for template catalog and pricing
 
 ## Repository structure
 
@@ -101,8 +98,9 @@ This project has a clear product path:
 │   ├── react-vite/
 │   ├── node-express/
 │   └── fullstack-node-react/
-├── test/
-│   └── scaffoldforge.test.js
+├── index.html
+├── styles.css
+├── vercel.json
 ├── package.json
 ├── README.md
 ├── LICENSE
