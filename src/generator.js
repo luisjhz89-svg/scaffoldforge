@@ -1,7 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { getTemplateById, sanitizeProjectName } from './templates.js';
+import { TEMPLATE_DEFINITIONS, getTemplateById, sanitizeProjectName } from './templates.js';
 
 const rootDir = path.resolve(fileURLToPath(new URL('..', import.meta.url)));
 
@@ -21,18 +21,16 @@ export async function generateProject({
 }) {
   const template = getTemplateById(templateName);
   if (!template) {
-    const available = Object.keys(getTemplateById('react-vite') ? {
-      'react-vite': true,
-      'node-express': true,
-      'fullstack-node-react': true
-    } : {}).join(', ');
+    const available = Object.keys(TEMPLATE_DEFINITIONS).join(', ');
     throw new Error(`Unknown template: "${templateName}". Available templates: ${available}`);
   }
 
   const safeProjectName = sanitizeProjectName(projectName);
+  const resolvedOutputDir = path.resolve(outputDir);
   const templateDir = path.join(rootDir, 'templates', template.id);
-  const projectDir = path.join(outputDir, safeProjectName);
+  const projectDir = path.join(resolvedOutputDir, safeProjectName);
 
+  await fs.mkdir(resolvedOutputDir, { recursive: true });
   await fs.mkdir(projectDir, { recursive: true });
 
   await copyTemplateDir(templateDir, projectDir, {
