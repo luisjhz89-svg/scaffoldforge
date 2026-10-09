@@ -9,6 +9,11 @@ export const TEMPLATE_DEFINITIONS = {
     label: 'Node + Express',
     description: 'API starter for Express with environment config and health-check endpoints.'
   },
+  'paypal-node-express': {
+    id: 'paypal-node-express',
+    label: 'PayPal + Node + Express',
+    description: 'Node API starter with PayPal Checkout, server-side OAuth, and Sandbox defaults.'
+  },
   'fullstack-node-react': {
     id: 'fullstack-node-react',
     label: 'Fullstack Node + React',
