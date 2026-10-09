@@ -33,11 +33,14 @@ test('PayPal template generates a configured project', async () => {
       await fs.readFile(path.join(project.projectDir, 'package.json'), 'utf8')
     );
     const server = await fs.readFile(path.join(project.projectDir, 'src/server.js'), 'utf8');
+    const license = await fs.readFile(path.join(project.projectDir, 'LICENSE'), 'utf8');
 
     assert.equal(project.projectName, 'paypal-demo');
     assert.equal(packageJson.name, 'paypal-demo');
     assert.match(server, /PayPal API for Paypal Demo/);
     assert.match(server, /api-m\.sandbox\.paypal\.com/);
+    assert.match(license, /^MIT License/);
+    assert.match(license, /Permission is hereby granted/);
   } finally {
     await fs.rm(outputDir, { recursive: true, force: true });
   }

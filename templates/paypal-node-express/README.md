@@ -28,3 +28,7 @@ Never commit `.env` or expose `PAYPAL_CLIENT_SECRET` in a browser or client appl
 The API obtains and caches OAuth 2.0 access tokens on the server. The default environment is PayPal Sandbox; set `PAYPAL_ENVIRONMENT=live` to use the production API with production credentials.
 
 This starter uses one configured amount as a demo. Before going live, calculate prices from trusted server-side product data, authenticate and authorize callers, add appropriate abuse protections, and verify payment state before fulfilling orders. Production integrations and testing outside the US require a PayPal Business account.
+
+## License
+
+The generated starter code is distributed under the MIT License; see `LICENSE`. This license does not grant rights to PayPal trademarks or services, or replace PayPal's own API and account terms. Review PayPal's terms before using the integration.
