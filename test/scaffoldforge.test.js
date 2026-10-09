@@ -34,11 +34,20 @@ test('PayPal template generates a configured project', async () => {
     );
     const server = await fs.readFile(path.join(project.projectDir, 'src/server.js'), 'utf8');
     const license = await fs.readFile(path.join(project.projectDir, 'LICENSE'), 'utf8');
+    const checkoutPage = await fs.readFile(path.join(project.projectDir, 'public/index.html'), 'utf8');
+    const checkoutScript = await fs.readFile(
+      path.join(project.projectDir, 'public/checkout.js'),
+      'utf8'
+    );
 
     assert.equal(project.projectName, 'paypal-demo');
     assert.equal(packageJson.name, 'paypal-demo');
     assert.match(server, /PayPal API for Paypal Demo/);
     assert.match(server, /api-m\.sandbox\.paypal\.com/);
+    assert.match(server, /\/api\/paypal\/config/);
+    assert.match(checkoutPage, /PayPal Checkout demo/);
+    assert.match(checkoutScript, /\/api\/paypal\/orders/);
+    assert.match(checkoutScript, /window\.paypal\.Buttons/);
     assert.match(license, /^MIT License/);
     assert.match(license, /Permission is hereby granted/);
   } finally {

@@ -1,10 +1,12 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import { fileURLToPath } from 'node:url';
 
 dotenv.config();
 
 const app = express();
 const PORT = Number(process.env.PORT || 3000);
+const publicDir = fileURLToPath(new URL('../public', import.meta.url));
 const PAYPAL_API_URLS = {
   sandbox: 'https://api-m.sandbox.paypal.com',
   live: 'https://api-m.paypal.com'
@@ -14,9 +16,22 @@ let cachedAccessToken;
 let tokenExpiresAt = 0;
 
 app.use(express.json());
+app.use(express.static(publicDir));
 
 app.get('/api/health', (request, response) => {
   response.json({ status: 'ok', app: '{{projectName}}' });
+});
+
+app.get('/api/paypal/config', (request, response) => {
+  const currency = process.env.PAYPAL_CURRENCY || 'USD';
+  const clientId = process.env.PAYPAL_CLIENT_ID;
+
+  if (!clientId || !/^[A-Z]{3}$/.test(currency)) {
+    response.status(500).json({ error: 'PayPal client ID or currency is not configured correctly' });
+    return;
+  }
+
+  response.json({ clientId, currency });
 });
 
 app.post('/api/paypal/orders', async (request, response) => {
