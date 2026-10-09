@@ -7,6 +7,7 @@ ScaffoldForge is a CLI generator for modern starter projects. It helps teams ski
 ScaffoldForge generates ready-to-use starter projects for:
 - React + Vite
 - Node + Express
+- PayPal Checkout + Node + Express
 - Full-stack Node + React
 
 ## Quick install
@@ -31,6 +32,7 @@ scaffoldforge list
 ```bash
 scaffoldforge init demo-app --template react-vite --description "Analytics dashboard"
 scaffoldforge init api-demo --template node-express --description "Backend API starter"
+scaffoldforge init paypal-demo --template paypal-node-express --description "PayPal Checkout API"
 scaffoldforge init fullstack-demo --template fullstack-node-react --description "Full-stack starter project"
 ```
 
@@ -97,6 +99,7 @@ ScaffoldForge is designed as a real product with a clear monetization path:
 ├── templates/
 │   ├── react-vite/
 │   ├── node-express/
+│   ├── paypal-node-express/
 │   └── fullstack-node-react/
 ├── index.html
 ├── styles.css
