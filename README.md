@@ -10,6 +10,14 @@ ScaffoldForge generates ready-to-use starter projects for:
 - PayPal Checkout + Node + Express
 - Full-stack Node + React
 
+## Copyright and third-party notices
+
+The original ScaffoldForge source code is copyright (c) 2026 Luis HZ and is distributed under the MIT License in `LICENSE`.
+
+The PayPal starter is an example integration with PayPal services. PayPal names, logos, trademarks, APIs, and services belong to PayPal, Inc. or its affiliates. ScaffoldForge is not affiliated with, endorsed by, or sponsored by PayPal. See `NOTICE.md` for third-party attribution and licensing information.
+
+This repository does not redistribute PayPal's REST API specification files. If you add material from the PayPal REST API Specifications repository, preserve its Apache License 2.0 license and required notices.
+
 ## Quick install
 
 From the repository root:
@@ -106,10 +114,11 @@ ScaffoldForge is designed as a real product with a clear monetization path:
 ├── vercel.json
 ├── package.json
 ├── README.md
+├── NOTICE.md
 ├── LICENSE
 └── .gitignore
 ```
 
 ## License
 
-MIT
+MIT. See `LICENSE`.
