@@ -4,6 +4,16 @@
 
 Node.js and Express starter for PayPal Checkout, including a browser checkout page and server-side order endpoints. PayPal credentials stay on the server; the Sandbox environment is selected by default.
 
+## Third-party and trademark notice
+
+This template is an example integration with PayPal services. PayPal, the PayPal logo, and related names and marks belong to PayPal, Inc. or its affiliates. This project is not affiliated with, endorsed by, or sponsored by PayPal. Use of PayPal services is subject to PayPal's own developer, API, and account terms.
+
+The generated starter code is distributed under the MIT License. The MIT License does not grant rights to PayPal trademarks or services. If you copy PayPal specification files or other PayPal-licensed material into a generated project, preserve the applicable Apache License 2.0 terms and copyright notices described in the repository's `NOTICE.md`.
+
+## Official PayPal integration guide
+
+For the current official Checkout integration flow, consult the [PayPal Checkout integration guide](https://developer.paypal.com/checkout/integrate).
+
 ## Setup
 
 1. Create a REST app in the [PayPal Developer Dashboard](https://developer.paypal.com/dashboard/).
