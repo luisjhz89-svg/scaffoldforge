@@ -1,6 +1,6 @@
 {
   "name": "scaffoldforge",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CLI generator for ready-to-use starter projects and product boilerplates",
   "bin": {
     "scaffoldforge": "bin/scaffoldforge.js"
@@ -18,10 +18,27 @@
     "cli",
     "starter",
     "templates",
-    "productivity"
+    "node",
+    "react"
   ],
   "license": "MIT",
   "engines": {
     "node": ">=18"
+  },
+  "files": [
+    "bin",
+    "src",
+    "templates",
+    "README.md",
+    "LICENSE",
+    "NOTICE.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luisjhz89-svg/scaffoldforge.git"
+  },
+  "homepage": "https://github.com/luisjhz89-svg/scaffoldforge#readme",
+  "bugs": {
+    "url": "https://github.com/luisjhz89-svg/scaffoldforge/issues"
   }
 }
