@@ -475,6 +475,51 @@ h1, h2, h3 {
   font-size: 0.96rem;
 }
 
+.legal-document {
+  max-width: 860px;
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.legal-document h1 {
+  margin: 18px 0;
+}
+
+.legal-document section {
+  margin-top: 32px;
+}
+
+.legal-document h2 {
+  margin-bottom: 12px;
+  font-size: 1.35rem;
+}
+
+.legal-document p + p {
+  margin-top: 12px;
+}
+
+.legal-document p {
+  color: var(--muted);
+}
+
+.legal-document strong {
+  color: var(--text);
+}
+
+.legal-document a {
+  color: #9fc0ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal-notice {
+  margin: 20px 0;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
 @media (max-width: 900px) {
   .hero-grid,
   .two-col,
