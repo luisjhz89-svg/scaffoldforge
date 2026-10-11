@@ -99,6 +99,72 @@ test('Fingerprint SDK template generates a private branded project with usable a
       ['register', { userId: 'user-1' }],
       ['authenticate', { reason: 'Sign in' }]
     ]);
+
+    const credentialBytes = new Uint8Array([1, 2, 3]).buffer;
+    const webAuthnCalls = [];
+    const webAdapter = sdk.createWebAuthnAdapter({
+      getRegistrationOptions: async () => ({
+        challenge: 'AQID',
+        user: { id: 'BAUG', name: 'user', displayName: 'User' }
+      }),
+      verifyRegistration: async (credential) => {
+        webAuthnCalls.push(['verifyRegistration', credential]);
+        return { verified: true };
+      },
+      getAuthenticationOptions: async () => ({
+        challenge: 'AQID',
+        allowCredentials: [{ id: 'BAUG', type: 'public-key' }]
+      }),
+      verifyAuthentication: async (credential) => {
+        webAuthnCalls.push(['verifyAuthentication', credential]);
+        return { verified: true };
+      },
+      credentials: {
+        create: async ({ publicKey }) => {
+          webAuthnCalls.push(['create', publicKey]);
+          return {
+            id: 'credential-id',
+            rawId: credentialBytes,
+            type: 'public-key',
+            response: { attestationObject: credentialBytes, clientDataJSON: credentialBytes },
+            authenticatorAttachment: 'platform',
+            getClientExtensionResults: () => ({})
+          };
+        },
+        get: async ({ publicKey }) => {
+          webAuthnCalls.push(['get', publicKey]);
+          return {
+            id: 'credential-id',
+            rawId: credentialBytes,
+            type: 'public-key',
+            response: {
+              authenticatorData: credentialBytes,
+              clientDataJSON: credentialBytes,
+              signature: credentialBytes,
+              userHandle: credentialBytes
+            },
+            authenticatorAttachment: 'platform',
+            getClientExtensionResults: () => ({})
+          };
+        }
+      }
+    });
+
+    const webApi = sdk.createFingerprintSDK({ adapter: webAdapter });
+    assert.equal(webApi.platform, 'web');
+    assert.deepEqual(await webApi.register(), { verified: true });
+    assert.deepEqual(await webApi.authenticate(), { verified: true });
+    assert.ok(webAuthnCalls.find(([name, options]) =>
+      name === 'create' && options.challenge instanceof ArrayBuffer && options.user.id instanceof ArrayBuffer
+    ));
+    assert.ok(webAuthnCalls.find(([name, options]) =>
+      name === 'get' && options.challenge instanceof ArrayBuffer &&
+      options.allowCredentials[0].id instanceof ArrayBuffer
+    ));
+    assert.deepEqual(webAuthnCalls.find(([name]) => name === 'verifyRegistration')[1].response, {
+      attestationObject: 'AQID',
+      clientDataJSON: 'AQID'
+    });
   } finally {
     await fs.rm(outputDir, { recursive: true, force: true });
   }
