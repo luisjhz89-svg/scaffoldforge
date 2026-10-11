@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
+import { pathToFileURL } from 'node:url';
 import { generateProject } from '../src/generator.js';
 import { listTemplates, sanitizeProjectName } from '../src/templates.js';
 
@@ -11,6 +12,7 @@ test('template list contains project starters', () => {
   assert.ok(templates.some((template) => template.id === 'react-vite'));
   assert.ok(templates.some((template) => template.id === 'node-express'));
   assert.ok(templates.some((template) => template.id === 'paypal-node-express'));
+  assert.ok(templates.some((template) => template.id === 'fingerprint-sdk'));
 });
 
 test('project names are normalized', () => {
@@ -50,6 +52,119 @@ test('PayPal template generates a configured project', async () => {
     assert.match(checkoutScript, /window\.paypal\.Buttons/);
     assert.match(license, /^MIT License/);
     assert.match(license, /Permission is hereby granted/);
+  } finally {
+    await fs.rm(outputDir, { recursive: true, force: true });
+  }
+});
+
+test('Fingerprint SDK template generates a private branded project with usable adapters', async () => {
+  const outputDir = await fs.mkdtemp(path.join(os.tmpdir(), 'scaffoldforge-'));
+
+  try {
+    const project = await generateProject({
+      projectName: 'Fingerprint SDK',
+      templateName: 'fingerprint-sdk',
+      description: 'Cross-platform biometric authentication SDK',
+      outputDir
+    });
+    const packageJson = JSON.parse(
+      await fs.readFile(path.join(project.projectDir, 'package.json'), 'utf8')
+    );
+    const license = await fs.readFile(path.join(project.projectDir, 'LICENSE'), 'utf8');
+    const readme = await fs.readFile(path.join(project.projectDir, 'README.md'), 'utf8');
+    const sdk = await import(pathToFileURL(path.join(project.projectDir, 'src/index.js')));
+
+    assert.equal(packageJson.name, 'fingerprint-sdk');
+    assert.equal(packageJson.license, 'UNLICENSED');
+    assert.match(license, /© 2026 Estudio Legal Mx/);
+    assert.match(readme, /Fingerprint by Estudio Legal Mx/);
+
+    const calls = [];
+    const adapter = {
+      platform: 'test',
+      register: async (options) => {
+        calls.push(['register', options]);
+        return { verified: true };
+      },
+      authenticate: async (options) => {
+        calls.push(['authenticate', options]);
+        return { verified: true };
+      }
+    };
+    const api = sdk.createFingerprintSDK({ adapter });
+    assert.deepEqual(await api.register({ userId: 'user-1' }), { verified: true });
+    assert.deepEqual(await api.authenticate({ reason: 'Sign in' }), { verified: true });
+    assert.equal(api.platform, 'test');
+    assert.deepEqual(calls, [
+      ['register', { userId: 'user-1' }],
+      ['authenticate', { reason: 'Sign in' }]
+    ]);
+
+    const credentialBytes = new Uint8Array([1, 2, 3]).buffer;
+    const webAuthnCalls = [];
+    const webAdapter = sdk.createWebAuthnAdapter({
+      getRegistrationOptions: async () => ({
+        challenge: 'AQID',
+        user: { id: 'BAUG', name: 'user', displayName: 'User' }
+      }),
+      verifyRegistration: async (credential) => {
+        webAuthnCalls.push(['verifyRegistration', credential]);
+        return { verified: true };
+      },
+      getAuthenticationOptions: async () => ({
+        challenge: 'AQID',
+        allowCredentials: [{ id: 'BAUG', type: 'public-key' }]
+      }),
+      verifyAuthentication: async (credential) => {
+        webAuthnCalls.push(['verifyAuthentication', credential]);
+        return { verified: true };
+      },
+      credentials: {
+        create: async ({ publicKey }) => {
+          webAuthnCalls.push(['create', publicKey]);
+          return {
+            id: 'credential-id',
+            rawId: credentialBytes,
+            type: 'public-key',
+            response: { attestationObject: credentialBytes, clientDataJSON: credentialBytes },
+            authenticatorAttachment: 'platform',
+            getClientExtensionResults: () => ({})
+          };
+        },
+        get: async ({ publicKey }) => {
+          webAuthnCalls.push(['get', publicKey]);
+          return {
+            id: 'credential-id',
+            rawId: credentialBytes,
+            type: 'public-key',
+            response: {
+              authenticatorData: credentialBytes,
+              clientDataJSON: credentialBytes,
+              signature: credentialBytes,
+              userHandle: credentialBytes
+            },
+            authenticatorAttachment: 'platform',
+            getClientExtensionResults: () => ({})
+          };
+        }
+      }
+    });
+
+    const webApi = sdk.createFingerprintSDK({ adapter: webAdapter });
+    assert.equal(webApi.platform, 'web');
+    assert.deepEqual(await webApi.register(), { verified: true });
+    assert.deepEqual(await webApi.authenticate(), { verified: true });
+    assert.ok(webAuthnCalls.find(([name, options]) =>
+      name === 'create' && options.challenge instanceof ArrayBuffer && options.user.id instanceof ArrayBuffer
+    ));
+    assert.ok(webAuthnCalls.find(([name, options]) =>
+      name === 'get' && options.challenge instanceof ArrayBuffer &&
+      options.allowCredentials[0].id instanceof ArrayBuffer
+    ));
+    assert.deepEqual(webAuthnCalls.find(([name]) => name === 'verifyRegistration')[1].response, {
+      attestationObject: 'AQID',
+      clientDataJSON: 'AQID'
+    });
   } finally {
     await fs.rm(outputDir, { recursive: true, force: true });
   }

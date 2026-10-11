@@ -1,0 +1,19 @@
+{
+  "name": "{{projectSlug}}",
+  "version": "0.1.0",
+  "description": "{{description}}",
+  "type": "module",
+  "exports": "./src/index.js",
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "fingerprint",
+    "biometric",
+    "authentication",
+    "webauthn",
+    "sdk"
+  ],
+  "author": "Estudio Legal Mx",
+  "license": "UNLICENSED"
+}

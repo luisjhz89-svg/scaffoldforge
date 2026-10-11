@@ -9,6 +9,7 @@ ScaffoldForge generates ready-to-use starter projects for:
 - Node + Express
 - PayPal Checkout + Node + Express
 - Full-stack Node + React
+- Fingerprint by Estudio Legal Mx SDK
 
 ## Copyright and third-party notices
 
@@ -42,6 +43,7 @@ scaffoldforge init demo-app --template react-vite --description "Analytics dashb
 scaffoldforge init api-demo --template node-express --description "Backend API starter"
 scaffoldforge init paypal-demo --template paypal-node-express --description "PayPal Checkout API"
 scaffoldforge init fullstack-demo --template fullstack-node-react --description "Full-stack starter project"
+scaffoldforge init fingerprint-sdk --template fingerprint-sdk --description "Cross-platform biometric authentication SDK"
 ```
 
 Then:
@@ -108,7 +110,8 @@ ScaffoldForge is designed as a real product with a clear monetization path:
 │   ├── react-vite/
 │   ├── node-express/
 │   ├── paypal-node-express/
-│   └── fullstack-node-react/
+│   ├── fullstack-node-react/
+│   └── fingerprint-sdk/
 ├── index.html
 ├── styles.css
 ├── vercel.json

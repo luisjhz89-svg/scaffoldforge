@@ -14,6 +14,7 @@ scaffoldforge list
 
 ```bash
 scaffoldforge init my-dashboard --template react-vite --description "Analytics dashboard"
+scaffoldforge init fingerprint-sdk --template fingerprint-sdk --description "Biometric authentication SDK"
 ```
 
 Then:

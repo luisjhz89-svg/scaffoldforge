@@ -18,6 +18,11 @@ export const TEMPLATE_DEFINITIONS = {
     id: 'fullstack-node-react',
     label: 'Fullstack Node + React',
     description: 'A simple full-stack app with a Node API and a React client shell.'
+  },
+  'fingerprint-sdk': {
+    id: 'fingerprint-sdk',
+    label: 'Fingerprint by Estudio Legal Mx',
+    description: 'A privacy-first, cross-platform biometric authentication SDK starter with a WebAuthn adapter.'
   }
 };
 
